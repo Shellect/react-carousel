@@ -1,3 +1,29 @@
+.carousel {
+    width: 700px;
+    
+    border: dashed 2px red; /* временно */
+    margin: 150px auto;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+}
+
 .carousel img {
+    position: absolute;
     width: 600px;
+    opacity: 0;
+}
+
+.prev {
+    transform: translateX(-100%);
+}
+
+.next {
+    transform: translateX(100%);
+}
+
+img.active {
+    opacity: 1;
 }
