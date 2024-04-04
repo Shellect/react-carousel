@@ -1,10 +1,12 @@
 import React from "react";
 
 export default class App extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            active: 0
+            prev: 1,
+            active: 2,
+            next: 3
         }
         this.images = [
             "./media/1.jpg",
@@ -16,42 +18,56 @@ export default class App extends React.Component {
         this.len = this.images.length;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.timerId = setInterval(
-            () => this.prev(),
-            1000
+            () => this.next(),
+            5000
         );
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.timerId);
     }
 
-    next(){
-        let {active} = this.state;
-        active = ++active % this.len;
-        this.setState({active});
+    next() {
+        let { prev, active, next } = this.state;
+        prev = active;
+        active = next;
+        next = (next + 1) % this.len;
+        this.setState({ prev, active, next });
     }
 
-    prev(){
-        let {active} = this.state;
-        active = (active || this.len) - 1;
-        this.setState({active});
+    prev() {
+        let { prev, active, next } = this.state;
+        next = active;
+        active = prev;
+        prev = (prev || this.len) - 1;
+        this.setState({ prev, active, next });
     }
 
     render() {
-        const {active} = this.state;
-        let images = this.images.map(function (el, i){
-            return <img
-                key={i}
-                className={active === i ? "active" : undefined}
-                src={el} 
-            />
+        const { prev, active, next } = this.state;
+        let images = this.images.map(function (el, i) {
+            let className = "slide";
+            switch (true) {
+                case (i === prev):
+                    className += " prev";
+                    break;
+                case (i === active):
+                    className += " active";
+                    break;
+                case (i === next):
+                    className += " next";
+                    break;
+            }
+            return <img key={i} className={className} src={el} />
         });
 
         return (
             <div className="carousel">
+                <img onClick={() => this.prev()} className="arrow arrow-back" src="./media/arrow_back.png" />
                 {images}
+                <img onClick={() => this.next()} className="arrow arrow-next" src="./media/arrow_next.png" />
             </div>
         );
     }

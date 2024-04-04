@@ -4,5 +4,5 @@ import { createRoot } from "react-dom/client";
 import App from "./app";
 
 const root = createRoot(document.querySelector("#root"));
-root.render(React.createElement(App));
+root.render(<App />);
 

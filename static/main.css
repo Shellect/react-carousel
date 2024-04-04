@@ -1,29 +1,40 @@
 .carousel {
-    width: 700px;
-    
-    border: dashed 2px red; /* временно */
-    margin: 150px auto;
-
+    width: 750px;
+    margin: 300px auto;
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-
+    align-items: center;
+    position: relative;
 }
 
-.carousel img {
+.slide {
     position: absolute;
     width: 600px;
     opacity: 0;
+    transition-duration: 1s;
 }
 
 .prev {
-    transform: translateX(-100%);
+    transform: translateX(-120%);
 }
 
 .next {
-    transform: translateX(100%);
+    transform: translateX(120%);
 }
 
-img.active {
+.slide.active {
     opacity: 1;
+}
+
+.arrow {
+    width: 64px;
+    position: absolute;
+}
+.arrow-next {
+    right: 0;
+}
+
+.arrow-back {
+    left: 0;
 }
